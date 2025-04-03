@@ -2,17 +2,20 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap'); */
 
 :root {
-    /* Define colors for easy changes */
-    --primary-color: #2b4162; /* A modern blue */
-    --primary-hover: #0056b3;
-    --correct-color: #0b6e4f; /* Green */
-    --incorrect-color: #721817; /* Red */
-    --light-bg: #f8f9fa;
-    --dark-text: #2b4162;
-    --border-color: #dee2e6;
+    /* Define colors based on the provided palette */
+    --primary-color: #2b4162;       /* Dark Blue */
+    --primary-hover: #1e2d48;       /* Darker Blue (approximated) */
+    --correct-color: #0B6E4F;       /* Green */
+    --correct-bg: #d1f0e8;          /* Light Green (derived) */
+    --incorrect-color: #721817;      /* Red */
+    --incorrect-bg: #f8d3d2;         /* Light Red (derived) */
+    --light-bg: #F9DEC9;           /* Light Peach/Beige */
+    --neutral-border: #c7d6d5;     /* Light Grayish-Cyan */
+    --dark-text: #2b4162;           /* Dark Blue for text */
     --white: #ffffff;
-    --selected-bg: #60AFFF; /* Lighter blue for selected item */
-    --selected-border: #b3d7ff;
+    --selected-bg: #eaf0f6;         /* Very Light Blue/Gray (derived) */
+    --selected-border: #a6b8d0;     /* Medium Blue/Gray (derived) */
+    --disabled-bg: #a9b6b5;        /* Muted Grayish-Cyan for disabled */
 }
 
 body {
@@ -46,7 +49,7 @@ h1 {
 #definition-area {
     margin-bottom: 25px;
     padding: 20px;
-    background-color: #f0f6ff;
+    background-color: #fdf6f0;
     border-radius: 8px;
     border-left: 5px solid var(--primary-color);
 }
@@ -54,7 +57,7 @@ h1 {
 #definition-text {
     font-style: normal;
     font-size: 1.2em;
-    color: #333;
+    color: var(--dark-text);
 }
 
 #term-parts {
@@ -66,10 +69,9 @@ h1 {
 }
 
 .part-column {
-    flex: 1; /* Allows columns to shrink */
-    /* Removed min-width to allow more shrinking on mobile */
+    flex: 1;
     padding: 20px 15px;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--neutral-border);
     border-radius: 8px;
     background-color: var(--white);
     transition: box-shadow 0.3s ease;
@@ -96,19 +98,19 @@ h1 {
     font-size: 1em;
     text-align: center;
     cursor: pointer;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--neutral-border);
     background-color: var(--white);
     color: var(--dark-text);
     border-radius: 6px;
-    transition: background-color 0.2s, border-color 0.2s, transform 0.1s ease;
+    transition: background-color 0.2s, border-color 0.2s, transform 0.1s ease, opacity 0.2s; /* Added opacity transition */
     -webkit-tap-highlight-color: transparent;
-    overflow-wrap: break-word; /* Help break long words if needed */
+    overflow-wrap: break-word;
     word-break: break-word;
 }
 
 .part-column button:hover {
-    background-color: #f1f1f1;
-    border-color: #adb5bd;
+    background-color: #f5f5f5;
+    border-color: #a9b6b5;
 }
 
 .part-column button:active {
@@ -120,14 +122,14 @@ h1 {
     border-color: var(--selected-border);
     color: var(--primary-color);
     font-weight: bold;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+    box-shadow: 0 0 5px rgba(43, 65, 98, 0.3);
 }
 
-#check-button, #next-button {
+#check-button, #next-button { /* Includes #next-button styling */
     display: block;
     width: 60%;
     max-width: 280px;
-    margin: 30px auto 20px auto;
+    margin: 15px auto 10px auto;
     padding: 14px 20px;
     font-size: 1.15em;
     font-weight: bold;
@@ -136,7 +138,7 @@ h1 {
     color: var(--white);
     border: none;
     border-radius: 8px;
-    transition: background-color 0.2s, transform 0.1s ease;
+    transition: background-color 0.2s, transform 0.1s ease, opacity 0.2s; /* Added opacity transition */
     -webkit-tap-highlight-color: transparent;
 }
 
@@ -148,8 +150,19 @@ h1 {
      transform: scale(0.98);
 }
 
+/* --- Style for the disabled Check Answer button --- */
+#check-button:disabled {
+    background-color: var(--disabled-bg); /* Use a muted color */
+    opacity: 0.7;           /* Make it slightly transparent */
+    cursor: not-allowed;    /* Show the 'not allowed' cursor on hover */
+    transform: none;        /* Prevent any active/hover transform effects */
+    box-shadow: none;       /* Remove any shadow effects */
+}
+/* ----------------------------------------------- */
+
+
 #feedback-area {
-    margin-top: 25px;
+    margin-top: 15px;
     font-weight: bold;
     text-align: center;
     min-height: 30px;
@@ -159,35 +172,49 @@ h1 {
 }
 
 #feedback-area:not(:empty) {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 #feedback-area.correct {
     color: var(--correct-color);
-    background-color: #721817;
-    border: 1px solid #721817;
+    background-color: var(--correct-bg);
+    border: 1px solid var(--correct-color);
 }
 
 #feedback-area.incorrect {
     color: var(--incorrect-color);
-    background-color: #721817;
-    border: 1px solid #721817;
+    background-color: var(--incorrect-bg);
+    border: 1px solid var(--incorrect-color);
 }
 
-#score-area {
-   text-align: right;
+#counters-area {
+   display: flex;
+   justify-content: space-around;
+   margin-top: 20px;
+   padding: 10px 0;
+   border-top: 1px solid var(--neutral-border);
    font-weight: bold;
-   margin-top: 15px;
-   margin-right: 10px;
    font-size: 1.1em;
-   color: #6c757d;
+}
+
+.counter {
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.correct-counter {
+    color: var(--correct-color);
+}
+
+.incorrect-counter {
+    color: var(--incorrect-color);
 }
 
 #correct-answer-area {
-    margin-top: 20px;
+    margin-top: 10px;
     padding: 15px;
-    background-color: #721817;
-    border: 1px solid #ced4da;
+    background-color: var(--neutral-border);
+    border: 1px solid #a9b6b5;
     border-radius: 8px;
     text-align: center;
 }
@@ -195,6 +222,7 @@ h1 {
 #correct-answer-area p {
     margin: 8px 0;
     font-size: 1.05em;
+    color: var(--dark-text);
 }
 
 #correct-answer-area strong {
@@ -204,21 +232,22 @@ h1 {
 #correct-answer-area #next-button {
     width: 50%;
     max-width: 200px;
-    margin-top: 15px;
+    margin: 10px auto 5px auto;
     padding: 10px 15px;
     font-size: 1em;
     background-color: var(--correct-color);
+    color: var(--white);
 }
 #correct-answer-area #next-button:hover {
-    background-color: #218838;
+    background-color: #08573e;
 }
 
 
 /* --- Styles for Mobile Screens (less than 768px wide) --- */
 @media (max-width: 767px) {
     body {
-        font-size: 14px; /* Further reduce base font slightly */
-        padding: 10px 5px; /* Reduce horizontal padding */
+        font-size: 14px;
+        padding: 10px 5px;
     }
 
     h1 {
@@ -227,7 +256,7 @@ h1 {
     }
 
     #game-area {
-        padding: 15px 10px; /* Reduce padding */
+        padding: 15px 10px;
         margin: 10px auto;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     }
@@ -238,54 +267,60 @@ h1 {
         border-left-width: 4px;
     }
     #definition-text {
-       font-size: 1.05em; /* Slightly smaller */
+       font-size: 1.05em;
     }
 
     #term-parts {
-        /* Ensure flex-direction is NOT column */
-        /* flex-direction: column; */ /* REMOVED this line */
-        gap: 8px; /* Reduce gap between columns */
+        gap: 8px;
         margin-bottom: 20px;
     }
 
     .part-column {
-        /* Columns will naturally shrink due to flex: 1 */
-        padding: 10px 5px; /* Reduce padding inside columns */
-        margin: 0; /* Remove vertical margins */
+        padding: 10px 5px;
+        margin: 0;
     }
 
     .part-column h2 {
-        font-size: 1.1em; /* Smaller column titles */
+        font-size: 1.1em;
         margin-bottom: 10px;
     }
 
      .part-column button {
-        padding: 10px 5px; /* Adjust padding */
-        font-size: 0.9em; /* Smaller button text */
+        padding: 10px 5px;
+        font-size: 0.9em;
         margin: 5px 0;
      }
 
     #check-button, #next-button {
         width: 85%;
-        padding: 12px 15px; /* Slightly less vertical padding */
+        padding: 12px 15px;
         font-size: 1.05em;
-        margin-top: 25px;
+        margin-top: 15px;
+        margin-bottom: 10px;
     }
+
+    /* Disabled state style applies on mobile too */
 
     #feedback-area {
-        margin-top: 20px;
+        margin-top: 10px;
         font-size: 1.05em;
     }
+     #feedback-area:not(:empty) {
+        margin-bottom: 8px;
+     }
 
-    #score-area {
-       text-align: center;
-       margin-top: 20px;
-       margin-right: 0;
-       font-size: 1em;
+    #counters-area {
+        font-size: 1em;
+        margin-top: 15px;
+        padding: 8px 0;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
     }
 
      #correct-answer-area {
          padding: 10px;
+         margin-top: 8px;
      }
      #correct-answer-area p {
          font-size: 1em;
@@ -293,5 +328,7 @@ h1 {
      #correct-answer-area #next-button {
         width: 60%;
         padding: 8px 12px;
+        margin-top: 8px;
+        margin-bottom: 5px;
      }
 }

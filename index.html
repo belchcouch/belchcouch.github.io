@@ -8,7 +8,7 @@
 </head>
 <body>
 
-    <h1>Medical Terminology Challenge</h1>
+    <h1>Medical Terminology Practice</h1>
 
     <div id="game-area">
         <div id="definition-area">
@@ -40,14 +40,15 @@
             <p id="feedback-text"></p>
         </div>
 
-        <div id="score-area">
-            <p>Score: <span id="score">0</span></p>
-        </div>
-
+    
          <div id="correct-answer-area" style="display: none;"> <p><strong>Correct Term:</strong> <span id="correct-term"></span></p>
              <p><strong>Breakdown:</strong> <span id="correct-breakdown"></span></p>
              <button id="next-button">Next Question</button>
          </div>
+          <div id="counters-area">
+            <span class="counter correct-counter">Correct: <span id="correct-count">0</span></span>
+            <span class="counter incorrect-counter">Incorrect: <span id="incorrect-count">0</span></span>
+        </div>
 
     </div>
     <script src="terms.js"></script>
