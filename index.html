@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Terminology Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1>Medical Terminology Challenge</h1>
+
+    <div id="game-area">
+        <div id="definition-area">
+            <p><strong>Definition:</strong></p>
+            <p id="definition-text">Loading definition...</p>
+        </div>
+
+        <div id="term-parts">
+            <div class="part-column">
+                <h2>Prefix</h2>
+                <div id="prefix-options">
+                    </div>
+            </div>
+            <div class="part-column">
+                <h2>Root</h2>
+                <div id="root-options">
+                    </div>
+            </div>
+            <div class="part-column">
+                <h2>Suffix</h2>
+                <div id="suffix-options">
+                    </div>
+            </div>
+        </div>
+
+        <button id="check-button">Check Answer</button>
+
+        <div id="feedback-area">
+            <p id="feedback-text"></p>
+        </div>
+
+        <div id="score-area">
+            <p>Score: <span id="score">0</span></p>
+        </div>
+
+         <div id="correct-answer-area" style="display: none;"> <p><strong>Correct Term:</strong> <span id="correct-term"></span></p>
+             <p><strong>Breakdown:</strong> <span id="correct-breakdown"></span></p>
+             <button id="next-button">Next Question</button>
+         </div>
+
+    </div>
+    <script src="terms.js"></script>
+    <script src="game.js"></script>
+
+</body>
+</html>

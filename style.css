@@ -1,0 +1,297 @@
+/* Import a modern font (Optional - requires internet connection) */
+/* @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap'); */
+
+:root {
+    /* Define colors for easy changes */
+    --primary-color: #2b4162; /* A modern blue */
+    --primary-hover: #0056b3;
+    --correct-color: #0b6e4f; /* Green */
+    --incorrect-color: #721817; /* Red */
+    --light-bg: #f8f9fa;
+    --dark-text: #2b4162;
+    --border-color: #dee2e6;
+    --white: #ffffff;
+    --selected-bg: #60AFFF; /* Lighter blue for selected item */
+    --selected-border: #b3d7ff;
+}
+
+body {
+    /* font-family: 'Roboto', sans-serif; */ /* Uncomment if using Google Font */
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif; /* System font stack */
+    line-height: 1.6;
+    margin: 0;
+    padding: 15px;
+    font-size: 16px;
+    background-color: var(--light-bg);
+    color: var(--dark-text);
+}
+
+h1 {
+    text-align: center;
+    color: var(--primary-color);
+    font-size: 2em;
+    margin-bottom: 30px;
+}
+
+#game-area {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 25px;
+    border: none;
+    border-radius: 12px;
+    background-color: var(--white);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+#definition-area {
+    margin-bottom: 25px;
+    padding: 20px;
+    background-color: #f0f6ff;
+    border-radius: 8px;
+    border-left: 5px solid var(--primary-color);
+}
+
+#definition-text {
+    font-style: normal;
+    font-size: 1.2em;
+    color: #333;
+}
+
+#term-parts {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    gap: 20px;
+    text-align: center;
+}
+
+.part-column {
+    flex: 1; /* Allows columns to shrink */
+    /* Removed min-width to allow more shrinking on mobile */
+    padding: 20px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--white);
+    transition: box-shadow 0.3s ease;
+}
+
+.part-column:hover {
+     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.part-column h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+    font-size: 1.4em;
+    font-weight: 700;
+}
+
+.part-column button {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 8px 0;
+    padding: 12px 10px;
+    font-size: 1em;
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid var(--border-color);
+    background-color: var(--white);
+    color: var(--dark-text);
+    border-radius: 6px;
+    transition: background-color 0.2s, border-color 0.2s, transform 0.1s ease;
+    -webkit-tap-highlight-color: transparent;
+    overflow-wrap: break-word; /* Help break long words if needed */
+    word-break: break-word;
+}
+
+.part-column button:hover {
+    background-color: #f1f1f1;
+    border-color: #adb5bd;
+}
+
+.part-column button:active {
+     transform: scale(0.98);
+}
+
+.part-column button.selected {
+    background-color: var(--selected-bg);
+    border-color: var(--selected-border);
+    color: var(--primary-color);
+    font-weight: bold;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+#check-button, #next-button {
+    display: block;
+    width: 60%;
+    max-width: 280px;
+    margin: 30px auto 20px auto;
+    padding: 14px 20px;
+    font-size: 1.15em;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    transition: background-color 0.2s, transform 0.1s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+#check-button:hover, #next-button:hover {
+    background-color: var(--primary-hover);
+}
+
+#check-button:active, #next-button:active {
+     transform: scale(0.98);
+}
+
+#feedback-area {
+    margin-top: 25px;
+    font-weight: bold;
+    text-align: center;
+    min-height: 30px;
+    font-size: 1.15em;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+#feedback-area:not(:empty) {
+    margin-bottom: 15px;
+}
+
+#feedback-area.correct {
+    color: var(--correct-color);
+    background-color: #721817;
+    border: 1px solid #721817;
+}
+
+#feedback-area.incorrect {
+    color: var(--incorrect-color);
+    background-color: #721817;
+    border: 1px solid #721817;
+}
+
+#score-area {
+   text-align: right;
+   font-weight: bold;
+   margin-top: 15px;
+   margin-right: 10px;
+   font-size: 1.1em;
+   color: #6c757d;
+}
+
+#correct-answer-area {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #721817;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    text-align: center;
+}
+
+#correct-answer-area p {
+    margin: 8px 0;
+    font-size: 1.05em;
+}
+
+#correct-answer-area strong {
+    color: var(--dark-text);
+}
+
+#correct-answer-area #next-button {
+    width: 50%;
+    max-width: 200px;
+    margin-top: 15px;
+    padding: 10px 15px;
+    font-size: 1em;
+    background-color: var(--correct-color);
+}
+#correct-answer-area #next-button:hover {
+    background-color: #218838;
+}
+
+
+/* --- Styles for Mobile Screens (less than 768px wide) --- */
+@media (max-width: 767px) {
+    body {
+        font-size: 14px; /* Further reduce base font slightly */
+        padding: 10px 5px; /* Reduce horizontal padding */
+    }
+
+    h1 {
+        font-size: 1.5em;
+        margin-bottom: 15px;
+    }
+
+    #game-area {
+        padding: 15px 10px; /* Reduce padding */
+        margin: 10px auto;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+     #definition-area {
+        padding: 10px;
+        margin-bottom: 15px;
+        border-left-width: 4px;
+    }
+    #definition-text {
+       font-size: 1.05em; /* Slightly smaller */
+    }
+
+    #term-parts {
+        /* Ensure flex-direction is NOT column */
+        /* flex-direction: column; */ /* REMOVED this line */
+        gap: 8px; /* Reduce gap between columns */
+        margin-bottom: 20px;
+    }
+
+    .part-column {
+        /* Columns will naturally shrink due to flex: 1 */
+        padding: 10px 5px; /* Reduce padding inside columns */
+        margin: 0; /* Remove vertical margins */
+    }
+
+    .part-column h2 {
+        font-size: 1.1em; /* Smaller column titles */
+        margin-bottom: 10px;
+    }
+
+     .part-column button {
+        padding: 10px 5px; /* Adjust padding */
+        font-size: 0.9em; /* Smaller button text */
+        margin: 5px 0;
+     }
+
+    #check-button, #next-button {
+        width: 85%;
+        padding: 12px 15px; /* Slightly less vertical padding */
+        font-size: 1.05em;
+        margin-top: 25px;
+    }
+
+    #feedback-area {
+        margin-top: 20px;
+        font-size: 1.05em;
+    }
+
+    #score-area {
+       text-align: center;
+       margin-top: 20px;
+       margin-right: 0;
+       font-size: 1em;
+    }
+
+     #correct-answer-area {
+         padding: 10px;
+     }
+     #correct-answer-area p {
+         font-size: 1em;
+     }
+     #correct-answer-area #next-button {
+        width: 60%;
+        padding: 8px 12px;
+     }
+}
