@@ -209,7 +209,7 @@
                 </div>
 
                 <div class="flex flex-col sm:flex-row justify-center mt-8 space-y-3 sm:space-y-0 sm:space-x-4">
-                    <button id="new-quiz-btn" class="primary-btn w-full sm:w-auto font-bold py-3 px-8 rounded-lg transition-all">New Quiz (Same Content)</button>
+                    <button id="new-quiz-btn" class="primary-btn w-full sm:w-auto font-bold py-3 px-8 rounded-lg transition-all">New Quiz</button>
                     <button id="start-over-btn" class="bg-gray-200 w-full sm:w-auto text-gray-800 font-bold py-3 px-8 rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-4 focus:ring-gray-400/50 transition-all">Start Over</button>
                 </div>
             </div>
@@ -368,30 +368,11 @@
             
             let basePrompt;
             if (isNewQuiz) {
-                const incorrectQuestions = [];
-                userAnswers.forEach((answerIndex, questionIndex) => {
-                    if (answerIndex !== null) {
-                        const question = firstQuizData[questionIndex];
-                        const selectedOption = question.options[answerIndex];
-                        if (!selectedOption.is_correct) {
-                            incorrectQuestions.push(question);
-                        }
-                    }
-                });
                 const previousQuestionsText = firstQuizData.map(q => q.question).join('\n');
-                const incorrectQuestionsText = incorrectQuestions.map(q => {
-                    const correctAnswer = q.options.find(opt => opt.is_correct).option_text;
-                    return `Question: ${q.question}\nCorrect Answer: ${correctAnswer}`;
-                }).join('\n\n');
-                
                 basePrompt = `You are generating a follow-up quiz. The user has already taken one quiz based on the provided content.
-                The following questions were on the FIRST quiz:
+                The following questions were on the FIRST quiz and should be avoided:
                 ${previousQuestionsText}
-                The user answered these questions INCORRECTLY:
-                ${incorrectQuestionsText}
-                Your task is to generate a NEW 20-question multiple choice quiz. This new quiz should prioritize:
-                1. Testing the user on the concepts they got wrong in the first quiz, but with NEW questions.
-                2. Covering new concepts from the provided content that were NOT included in the first quiz.`;
+                Your task is to generate a NEW 20-question multiple choice quiz that covers new concepts and information from the provided content that were NOT tested in the first quiz. Ensure there is no overlap in the topics or specific facts being tested.`;
             } else {
                  if (questionStyle === 'vignette') {
                     basePrompt = `Generate a 20 question multiple choice quiz based on the lecture content. The questions must be challenging, practical, situational-based vignettes. Each vignette should be a single, coherent question that presents a scenario with key details and then asks for a conclusion based on that information. The question should not explicitly label parts like "Scenario" or "Problem". For example, a good vignette question should read as a single paragraph like this: "Following a car accident in which the patient received a deep laceration on the medial side of his right knee, the patient notices numbness along the medial side of his right leg and foot. He has no motor deficit. The nerve which appears to have been injured is the:". Your task is to create questions in this integrated style, using the provided content to build the scenarios. The goal is to test the application of knowledge, not just recall of facts. Do not simply ask for definitions.`;
@@ -400,7 +381,8 @@
                     Key requirements for each question:
                     1. Plausible Distractors: All incorrect answer choices must be plausible and directly related to the topic of the question. They should represent common misconceptions or similar but incorrect concepts from the source material. Avoid completely irrelevant options.
                     2. Avoid Length Bias: Ensure all answer choices (correct and incorrect) are of similar length and complexity. The correct answer must not be consistently longer or more detailed than the distractors.
-                    3. Minimal Information: The question stem should provide the minimum amount of information necessary to be answerable, forcing the user to rely on their conceptual knowledge.`;
+                    3. Minimal Information: The question stem should provide the minimum amount of information necessary to be answerable, forcing the user to rely on their conceptual knowledge.
+                    4. Comprehensive and Varied Topic Selection: Ensure the questions are drawn from the entire breadth of the provided document. Do not focus only on the main headings or summaries. Actively seek out and test on a wide variety of concepts, including both major themes and specific, nuanced details found throughout the text. The goal is to create a comprehensive review, not just a summary of the most obvious topics.`;
                 }
             }
 
