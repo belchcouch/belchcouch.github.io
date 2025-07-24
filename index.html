@@ -12,17 +12,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
     <style>
         :root {
-            --bg-main: #FFFBFE;
-            --bg-container: #FFFFFF;
-            --border-color: #D0CFCF;
-            --text-dark: #565254;
-            --text-medium: #7A7D7D;
-            --text-light: #FFFFFF;
+            --bg-main: #1E2019;
+            --bg-container: #393E41;
+            --border-color: #93A29B;
+            --text-primary: #DDD78D;
+            --text-secondary: #93A29B;
+            --accent: #DCBF85;
         }
         body {
             font-family: 'Poppins', sans-serif;
             background-color: var(--bg-main);
-            color: var(--text-dark); 
+            color: var(--text-secondary); 
         }
         .main-container {
              background-color: var(--bg-container);
@@ -30,7 +30,7 @@
         }
         .loader {
             border: 5px solid var(--border-color);
-            border-top: 5px solid var(--text-dark);
+            border-top: 5px solid var(--text-primary);
             border-radius: 50%;
             width: 50px;
             height: 50px;
@@ -39,7 +39,7 @@
         }
         .loader-small {
             border: 2px solid var(--border-color);
-            border-top: 2px solid var(--text-dark);
+            border-top: 2px solid var(--text-primary);
             border-radius: 50%;
             width: 16px;
             height: 16px;
@@ -55,8 +55,8 @@
             transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
         }
         .custom-file-upload.dragover {
-            background-color: #f0f0f0;
-            border-color: var(--text-medium);
+            background-color: var(--bg-main);
+            border-color: var(--text-primary);
         }
         .answer-option {
             background-color: var(--bg-main);
@@ -65,32 +65,32 @@
             transition: all 0.2s ease-in-out;
         }
         .answer-option:hover:not(.disabled) {
-            border-color: var(--text-medium);
+            border-color: var(--text-primary);
             transform: translateY(-2px);
         }
         .answer-option.correct {
             border-color: #3fb950;
-            background-color: rgba(46, 160, 67, 0.1);
+            background-color: rgba(46, 160, 67, 0.15);
         }
         .answer-option.incorrect {
             border-color: #f85149;
-            background-color: rgba(248, 81, 73, 0.1);
+            background-color: rgba(248, 81, 73, 0.15);
         }
         .answer-option.disabled {
             cursor: not-allowed;
             opacity: 0.7;
         }
         .answer-option.answer-hidden {
-            background-color: #e5e7eb;
-            border-color: #d1d5db;
+            background-color: #374151;
+            border-color: var(--border-color);
             color: transparent;
             pointer-events: none;
         }
         .answer-option.answer-hidden .hide-answer-btn {
-            pointer-events: auto; /* Re-enable pointer events for the button itself */
+            pointer-events: auto;
         }
         .explanation {
-            color: var(--text-medium); 
+            color: var(--text-secondary); 
         }
         .explanation p {
             display: inline;
@@ -99,28 +99,28 @@
         .form-element {
             background-color: var(--bg-main);
             border: 1px solid var(--border-color);
-            color: var(--text-dark);
+            color: var(--text-secondary);
         }
         .form-element:focus {
-            border-color: var(--text-dark);
+            border-color: var(--text-primary);
             outline: none;
-            box-shadow: 0 0 0 3px rgba(86, 82, 84, 0.3);
+            box-shadow: 0 0 0 3px rgba(221, 215, 141, 0.3);
         }
         .primary-btn {
-            background-color: var(--text-dark);
-            color: var(--text-light);
-            border: 1px solid var(--text-dark);
+            background-color: var(--text-primary);
+            color: var(--bg-main);
+            border: 1px solid var(--text-primary);
         }
         .primary-btn:hover:not(:disabled) {
-             filter: brightness(1.2);
+             filter: brightness(1.1);
         }
         .nav-btn {
             background-color: var(--bg-container);
             border: 1px solid var(--border-color);
-            color: var(--text-dark);
+            color: var(--accent);
         }
         .nav-btn:hover:not(:disabled) {
-            border-color: var(--text-dark);
+            border-color: var(--accent);
             background-color: var(--bg-main);
         }
         .nav-btn:disabled {
@@ -133,25 +133,25 @@
         }
     </style>
 </head>
-<body class="text-gray-800">
+<body class="text-gray-300">
 
     <div class="container mx-auto max-w-4xl px-4 py-8 sm:py-12">
         <header id="main-header" class="text-center mb-10 sm:mb-12">
-            <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-800">Quiz Generator</h1>
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-white">Quiz Generator</h1>
         </header>
 
         <main>
             <div id="config-section" class="main-container p-4 sm:p-6 md:p-8 rounded-xl shadow-lg transition-all">
                 <div class="space-y-8">
                     <div>
-                        <h2 class="text-xl font-semibold mb-4 text-gray-800">1. Upload Your Content</h2>
+                        <h2 class="text-xl font-semibold mb-4 text-white">1. Upload Your Content</h2>
                         <div id="drop-zone" class="custom-file-upload w-full text-center block p-6 sm:p-10 rounded-lg">
-                            <svg class="w-10 h-10 sm:w-12 sm:h-12 mx-auto text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <svg class="w-10 h-10 sm:w-12 sm:h-12 mx-auto text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z" />
                             </svg>
-                            <p class="mt-4 text-lg font-medium text-gray-700">Choose a file or drag & drop it here</p>
+                            <p class="mt-4 text-lg font-medium text-gray-400">Choose a file or drag & drop it here</p>
                             <p class="mt-1 text-sm text-gray-500">PDF formats, up to 50MB</p>
-                            <button id="browse-btn" type="button" class="mt-6 bg-white border border-gray-300 text-gray-700 font-semibold py-2 px-6 rounded-lg hover:bg-gray-50 transition-all">
+                            <button id="browse-btn" type="button" class="mt-6 bg-gray-700 border border-gray-600 text-gray-300 font-semibold py-2 px-6 rounded-lg hover:bg-gray-600 transition-all">
                                 Browse File
                             </button>
                         </div>
@@ -160,10 +160,10 @@
                     </div>
 
                     <div>
-                        <h2 class="text-xl font-semibold mb-4 text-gray-800">2. Customize Your Quiz</h2>
+                        <h2 class="text-xl font-semibold mb-4 text-white">2. Customize Your Quiz</h2>
                         <div class="grid grid-cols-1">
                              <div>
-                                <label for="question-style" class="block text-sm font-medium text-gray-500 mb-2">Question Style</label>
+                                <label for="question-style" class="block text-sm font-medium text-gray-400 mb-2">Question Style</label>
                                 <select id="question-style" class="w-full p-3 form-element rounded-lg transition">
                                     <option value="standard">Standard</option>
                                     <option value="vignette">Vignette</option>
@@ -171,14 +171,14 @@
                             </div>
                         </div>
                         <div class="mt-6">
-                             <label for="custom-prompt" class="block text-sm font-medium text-gray-500 mb-2">Customize the Prompt (Optional)</label>
+                             <label for="custom-prompt" class="block text-sm font-medium text-gray-400 mb-2">Customize the Prompt (Optional)</label>
                              <textarea id="custom-prompt" rows="3" class="w-full p-3 form-element rounded-lg transition" placeholder="Add additional details or instructions here..."></textarea>
                         </div>
                     </div>
                 </div>
 
                 <div class="mt-10 text-center">
-                    <button id="generate-quiz-btn" class="primary-btn w-full sm:w-auto font-bold py-3 px-8 rounded-lg hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-gray-400/50 transition-all transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:scale-100">
+                    <button id="generate-quiz-btn" class="primary-btn w-full sm:w-auto font-bold py-3 px-8 rounded-lg hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-yellow-400/50 transition-all transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:scale-100">
                         Generate Quiz
                     </button>
                 </div>
@@ -186,11 +186,11 @@
             
             <div id="loader-section" class="hidden text-center p-8">
                 <div class="loader"></div>
-                <p class="text-lg text-gray-500">Generating your quiz...</p>
+                <p class="text-lg text-gray-400">Generating your quiz...</p>
             </div>
 
             <div id="quiz-section" class="hidden mt-10 main-container p-4 sm:p-6 md:p-8 rounded-xl shadow-lg">
-                <p id="quiz-progress" class="text-sm text-gray-500 text-right mb-4"></p>
+                <p id="quiz-progress" class="text-sm text-gray-400 text-right mb-4"></p>
                 <div id="quiz-content">
                      </div>
                 <div class="flex flex-col sm:flex-row justify-between mt-8 space-y-3 sm:space-y-0 sm:space-x-4">
@@ -200,21 +200,21 @@
             </div>
 
             <div id="results-section" class="hidden mt-10 main-container p-4 sm:p-6 md:p-8 rounded-xl shadow-lg">
-                <h2 class="text-2xl md:text-3xl font-bold mb-2 text-center text-gray-800">Quiz Complete!</h2>
-                <p id="score" class="text-lg md:text-xl font-bold text-center mb-6 text-gray-700"></p>
+                <h2 class="text-2xl md:text-3xl font-bold mb-2 text-center text-white">Quiz Complete!</h2>
+                <p id="score" class="text-lg md:text-xl font-bold text-center mb-6 text-gray-300"></p>
                 
                 <div id="review-section" class="hidden mt-6 text-left">
-                    <h3 class="text-lg md:text-xl font-semibold mb-4 text-gray-800">Review Incorrect Answers:</h3>
+                    <h3 class="text-lg md:text-xl font-semibold mb-4 text-white">Review Incorrect Answers:</h3>
                     <div id="review-content" class="space-y-4 max-h-64 overflow-y-auto pr-2"></div>
                 </div>
 
                 <div class="flex flex-col sm:flex-row justify-center mt-8 space-y-3 sm:space-y-0 sm:space-x-4">
-                    <button id="new-quiz-btn" class="primary-btn w-full sm:w-auto font-bold py-3 px-8 rounded-lg transition-all">New Quiz</button>
-                    <button id="start-over-btn" class="bg-gray-200 w-full sm:w-auto text-gray-800 font-bold py-3 px-8 rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-4 focus:ring-gray-400/50 transition-all">Start Over</button>
+                    <button id="new-quiz-btn" class="primary-btn w-full sm:w-auto font-bold py-3 px-8 rounded-lg transition-all">New Quiz (Same Content)</button>
+                    <button id="start-over-btn" class="nav-btn w-full sm:w-auto font-bold py-3 px-8 rounded-lg transition-all">Start Over</button>
                 </div>
             </div>
 
-            <div id="error-message" class="hidden mt-6 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg relative" role="alert">
+            <div id="error-message" class="hidden mt-6 bg-red-900/50 border border-red-700 text-red-300 px-4 py-3 rounded-lg relative" role="alert">
                 <strong class="font-bold">Error:</strong>
                 <span class="block sm:inline" id="error-text"></span>
             </div>
@@ -459,7 +459,7 @@
             fileEl.className = 'file-item flex items-center justify-between p-3 rounded-lg border-2 border-gray-300';
             
             fileEl.innerHTML = `
-                <span class="text-sm text-gray-700 truncate pr-2">${name}</span>
+                <span class="text-sm text-gray-400 truncate pr-2">${name}</span>
                 <div class="flex items-center space-x-2">
                     <div class="file-status"></div>
                     <button data-name="${name}" class="remove-file-btn text-red-500 hover:text-red-400">
@@ -589,7 +589,7 @@
             quizProgress.textContent = `${currentQuestionIndex + 1} / ${quizData.length}`;
 
             const questionEl = document.createElement('div');
-            questionEl.innerHTML = `<h3 class="text-xl mb-6 text-gray-800">${q.question}</h3>`;
+            questionEl.innerHTML = `<h3 class="text-xl mb-6 text-white">${q.question}</h3>`;
 
             const optionsContainer = document.createElement('div');
             optionsContainer.className = 'space-y-3';
@@ -600,17 +600,17 @@
                 optionEl.innerHTML = `
                     <div class="flex items-center justify-between">
                         <span class="option-text flex-grow">${option.option_text}</span>
-                        <button class="hide-answer-btn p-1 rounded-full hover:bg-gray-200 ml-4 flex-shrink-0">
-                            <svg class="eye-open w-5 h-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <button class="hide-answer-btn p-1 rounded-full hover:bg-gray-700 ml-4 flex-shrink-0">
+                            <svg class="eye-open w-5 h-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.432 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                             </svg>
-                            <svg class="eye-closed hidden w-5 h-5 text-gray-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <svg class="eye-closed hidden w-5 h-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                               <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" />
                             </svg>
                         </button>
                     </div>
-                    <div class="explanation hidden mt-3 pt-3 border-t border-gray-200"></div>`;
+                    <div class="explanation hidden mt-3 pt-3 border-t border-gray-700"></div>`;
                 optionsContainer.appendChild(optionEl);
             });
             questionEl.appendChild(optionsContainer);
@@ -707,12 +707,12 @@
                     const explanation = q.options.find(opt => opt.is_correct).explanation;
 
                     const reviewEl = document.createElement('div');
-                    reviewEl.className = 'bg-white p-4 rounded-lg shadow';
+                    reviewEl.className = 'bg-gray-800 p-4 rounded-lg shadow';
                     reviewEl.innerHTML = `
-                        <p class="text-gray-800 mb-2">${q.question}</p>
-                        <p class="text-sm"><span class="text-red-600">Your Answer:</span> ${userAnswer}</p>
-                        <p class="text-sm"><span class="text-green-600">Correct Answer:</span> ${correctAnswer}</p>
-                        <p class="text-sm mt-1 italic text-gray-600">${explanation}</p>
+                        <p class="text-white mb-2">${q.question}</p>
+                        <p class="text-sm"><span class="text-red-400">Your Answer:</span> ${userAnswer}</p>
+                        <p class="text-sm"><span class="text-green-400">Correct Answer:</span> ${correctAnswer}</p>
+                        <p class="text-sm mt-1 italic text-gray-500">${explanation}</p>
                     `;
                     reviewContent.appendChild(reviewEl);
                 });
